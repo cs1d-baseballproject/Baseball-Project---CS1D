@@ -2,30 +2,30 @@
 #DEFINE SOUVINERS_H
 
 #include <iostream>
-#include <string>
+#include <Qtring>
 
 using namespace std;
 
 class souvenirs
 {
 	private:
-		string souvenirName;
-		float price;
+		Qstring souvenirName;
+		double price;
 		
 	public:
 		//constructor
 		souvenirs();
 		
 		//setters
-		void setSouvenirName(string);
-		void setPrice(float);
+		void setSouvenirName(Qstring);
+		void setPrice(double);
 		
 		//getters
-		string getSouvenirName();
-		float getPrice();
+		Qstring getSouvenirName();
+		double getPrice();
 };
 
-souvenirs()
+souvenirs::souvenirs()
 {
 	cin.ignore(100,'\n');
 	cout<<"Enter Souvenir: ";
@@ -34,22 +34,22 @@ souvenirs()
 	cin<<price;
 }
 
-void setSouvenirName(string name)
+void souvenirs::setSouvenirName(Qstring name)
 {
 	souvenirName=name;
 }
 
-void setPrice(float amount)
+void souvenirs::setPrice(double amount)
 {
 	price=amount;
 }
 
-string getSouvenirName()
+Qstring souvenirs::getSouvenirName()
 {
 	return souvenirName;
 }
 
-float getPrice()
+souvenirs::double getPrice()
 {
 	return price;
 }
