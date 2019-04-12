@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMenu>
+#include "priorityQueue.h"
+#include "team.h"
+#include "database.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,8 +40,14 @@ private slots:
 
     void on_sortAllStadium_clicked();
 
+    void on_signOut_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    priorityQueue<team, QString> teams;
+
+    database* dbmanager{nullptr};
 
     bool isAdmin{false};
 };

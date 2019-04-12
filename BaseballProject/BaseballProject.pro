@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,10 +27,19 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    team.cpp \
+    souvenirs.cpp \
+    database.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        team.h \
+        souvenirs.h \
+    souvenirs.h \
+    team.h \
+    priorityQueue.h \
+    database.h
 
 FORMS += \
         mainwindow.ui
@@ -38,3 +48,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    MLB Information.xlsx \
+    MLBInformation.xlsx

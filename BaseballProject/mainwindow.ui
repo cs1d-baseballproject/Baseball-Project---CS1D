@@ -706,9 +706,9 @@ QToolButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="homePage">
      <widget class="QLabel" name="stadiumIcon">
       <property name="geometry">
        <rect>
@@ -798,8 +798,8 @@ QToolButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
      <widget class="QPushButton" name="initDB">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>520</y>
+        <x>520</x>
+        <y>200</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -825,7 +825,40 @@ QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
 </string>
       </property>
       <property name="text">
-       <string>Open File</string>
+       <string>Load File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="signOut">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>530</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Sign Out</string>
       </property>
      </widget>
     </widget>

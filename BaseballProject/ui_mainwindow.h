@@ -37,13 +37,14 @@ public:
     QToolButton *loginButton;
     QToolButton *cartButton;
     QStackedWidget *stackedWidget;
-    QWidget *page;
+    QWidget *homePage;
     QLabel *stadiumIcon;
     QLabel *label_7;
     QLabel *label_8;
     QLabel *label_9;
     QWidget *adminPage;
     QPushButton *initDB;
+    QPushButton *signOut;
     QWidget *loginPage;
     QLabel *label_2;
     QLabel *label_3;
@@ -226,12 +227,12 @@ public:
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         stackedWidget->setGeometry(QRect(0, 40, 800, 560));
-        page = new QWidget();
-        page->setObjectName(QStringLiteral("page"));
-        stadiumIcon = new QLabel(page);
+        homePage = new QWidget();
+        homePage->setObjectName(QStringLiteral("homePage"));
+        stadiumIcon = new QLabel(homePage);
         stadiumIcon->setObjectName(QStringLiteral("stadiumIcon"));
         stadiumIcon->setGeometry(QRect(3, 10, 793, 349));
-        label_7 = new QLabel(page);
+        label_7 = new QLabel(homePage);
         label_7->setObjectName(QStringLiteral("label_7"));
         label_7->setGeometry(QRect(150, 10, 455, 171));
         QFont font1;
@@ -240,7 +241,7 @@ public:
         font1.setWeight(75);
         label_7->setFont(font1);
         label_7->setAlignment(Qt::AlignCenter);
-        label_8 = new QLabel(page);
+        label_8 = new QLabel(homePage);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(270, 130, 281, 171));
         QFont font2;
@@ -250,7 +251,7 @@ public:
         font2.setWeight(75);
         label_8->setFont(font2);
         label_8->setAlignment(Qt::AlignCenter);
-        label_9 = new QLabel(page);
+        label_9 = new QLabel(homePage);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(300, 290, 301, 171));
         QFont font3;
@@ -260,12 +261,12 @@ public:
         font3.setWeight(75);
         label_9->setFont(font3);
         label_9->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
-        stackedWidget->addWidget(page);
+        stackedWidget->addWidget(homePage);
         adminPage = new QWidget();
         adminPage->setObjectName(QStringLiteral("adminPage"));
         initDB = new QPushButton(adminPage);
         initDB->setObjectName(QStringLiteral("initDB"));
-        initDB->setGeometry(QRect(20, 520, 81, 21));
+        initDB->setGeometry(QRect(520, 200, 81, 21));
         QFont font4;
         font4.setFamily(QStringLiteral("Nirmala UI"));
         font4.setPointSize(9);
@@ -274,6 +275,18 @@ public:
         initDB->setFont(font4);
         initDB->setAutoFillBackground(false);
         initDB->setStyleSheet(QLatin1String("QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}\n"
+"\n"
+"QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}\n"
+"\n"
+"QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}\n"
+"\n"
+""));
+        signOut = new QPushButton(adminPage);
+        signOut->setObjectName(QStringLiteral("signOut"));
+        signOut->setGeometry(QRect(710, 530, 81, 21));
+        signOut->setFont(font4);
+        signOut->setAutoFillBackground(false);
+        signOut->setStyleSheet(QLatin1String("QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}\n"
 "\n"
 "QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}\n"
 "\n"
@@ -444,7 +457,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -463,7 +476,8 @@ public:
         label_7->setText(QApplication::translate("MainWindow", "MLB", Q_NULLPTR));
         label_8->setText(QApplication::translate("MainWindow", "Trip", Q_NULLPTR));
         label_9->setText(QApplication::translate("MainWindow", "PLANNER", Q_NULLPTR));
-        initDB->setText(QApplication::translate("MainWindow", "Open File", Q_NULLPTR));
+        initDB->setText(QApplication::translate("MainWindow", "Load File", Q_NULLPTR));
+        signOut->setText(QApplication::translate("MainWindow", "Sign Out", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "Admin", Q_NULLPTR));
         label_3->setText(QApplication::translate("MainWindow", "Login", Q_NULLPTR));
         password->setText(QString());

@@ -54,6 +54,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_initDB_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Excel File (*.xlsx)"));
+    dbmanager = new database(fileName);
 }
 
 void MainWindow::on_loginButton_clicked()
@@ -143,4 +144,11 @@ void MainWindow::on_sortAllTeam_clicked()
 void MainWindow::on_sortAllStadium_clicked()
 {
     // IMPLEMENT: view all teams sorted by stadium name
+}
+
+
+void MainWindow::on_signOut_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    isAdmin = false;
 }
