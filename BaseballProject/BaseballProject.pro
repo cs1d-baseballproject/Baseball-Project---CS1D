@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += sql
+QT       += xlsx
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -52,3 +53,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     MLB Information.xlsx \
     MLBInformation.xlsx
+
+include(3rdParty/qtxlsx/xlsx/qtxlsx.pri)
