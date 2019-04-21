@@ -215,6 +215,7 @@ Makefile: BaseballProject.pro ../../../Qt/5.9.1/mingw53_32/mkspecs/win32-g++/qma
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/toolchain.prf \
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/default_pre.prf \
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/win32/default_pre.prf \
+		3rdParty/qtxlsx/xlsx/qtxlsx.pri \
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/resolve_config.prf \
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/exclusive_builds_post.prf \
 		../../../Qt/5.9.1/mingw53_32/mkspecs/features/default_post.prf \
@@ -394,6 +395,7 @@ Makefile: BaseballProject.pro ../../../Qt/5.9.1/mingw53_32/mkspecs/win32-g++/qma
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/toolchain.prf:
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/default_pre.prf:
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/win32/default_pre.prf:
+3rdParty/qtxlsx/xlsx/qtxlsx.pri:
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/resolve_config.prf:
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/exclusive_builds_post.prf:
 ../../../Qt/5.9.1/mingw53_32/mkspecs/features/default_post.prf:

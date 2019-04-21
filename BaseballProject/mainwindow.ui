@@ -193,6 +193,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="128">
+        <red>25</red>
+        <green>23</green>
+        <blue>28</blue>
+       </color>
+      </brush>
+     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -357,6 +366,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="128">
+        <red>25</red>
+        <green>23</green>
+        <blue>28</blue>
+       </color>
+      </brush>
+     </colorrole>
     </inactive>
     <disabled>
      <colorrole role="WindowText">
@@ -518,6 +536,15 @@
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="128">
+        <red>25</red>
+        <green>23</green>
+        <blue>28</blue>
        </color>
       </brush>
      </colorrole>
@@ -706,7 +733,7 @@ QToolButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="homePage">
      <widget class="QLabel" name="stadiumIcon">

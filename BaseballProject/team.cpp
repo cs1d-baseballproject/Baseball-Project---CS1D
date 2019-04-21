@@ -2,7 +2,7 @@
 
 // Constructor
 team::team(QString tName, QString tLeague, QString sName, int seats, QString loc,
-           QString play, int date, double dist, QString type, QString roof,
+           QString play, int date, int dist, QString type, QString roof,
            vector<souvenirs>& souv):
            teamName{tName}, league{tLeague}, stadiumName{sName}, seatingCapacity{seats},
            location{loc}, playingSurface{play}, dateOpened{date}, distanceToCenter{dist},
@@ -43,7 +43,7 @@ void team::setDateOpened(int date)
     dateOpened=date;
 }
 
-void team::setDistanceToCenter(double dist)
+void team::setDistanceToCenter(int dist)
 {
     distanceToCenter=dist;
 }
@@ -94,7 +94,7 @@ int team::getDateOpened() const
     return dateOpened;
 }
 
-double team::getDistanceToCenter() const
+int team::getDistanceToCenter() const
 {
     return distanceToCenter;
 }
@@ -107,4 +107,9 @@ QString team::getParkTypology() const
 QString team::getRoofType() const
 {
     return roofType;
+}
+
+vector<souvenirs>& team::getSouvenirs()
+{
+    return  availableSouvenirs;
 }

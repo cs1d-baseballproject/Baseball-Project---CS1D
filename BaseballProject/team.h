@@ -18,7 +18,7 @@ private:
     QString location;
     QString playingSurface;
     int dateOpened;
-    double distanceToCenter;
+    int distanceToCenter;
     QString parkTypology;
     QString roofType;
 
@@ -29,7 +29,7 @@ public:
     team(): teamName{""}, league{""}, stadiumName{""}, seatingCapacity{0}, location{""}, playingSurface{""}, dateOpened{0}, distanceToCenter{0}, parkTypology{""}, roofType{""}{}
 
     // Constructor
-    team(QString,QString, QString, int, QString, QString, int, double, QString, QString, std::vector<souvenirs>&);
+    team(QString,QString, QString, int, QString, QString, int, int, QString, QString, std::vector<souvenirs>&);
 
     //Setters
     void setTeamName(QString);
@@ -40,7 +40,7 @@ public:
     void setLocation(QString);
     void setPlayingSurface(QString);
     void setDateOpened(int);
-    void setDistanceToCenter(double);
+    void setDistanceToCenter(int);
     void setParkTypology(QString);
     void setRoofType(QString);
 
@@ -54,9 +54,10 @@ public:
     QString getLocation() const;
     QString getPlayingSurface() const;
     int getDateOpened() const;
-    double getDistanceToCenter() const;
+    int getDistanceToCenter() const;
     QString getParkTypology() const;
     QString getRoofType() const;
+    vector<souvenirs>& getSouvenirs();
 	
 };
 

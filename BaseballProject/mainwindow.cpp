@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QDebug"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), data{new database(teams, edgeList)}
 {
     // Variable Declarations
     QMenu* teamMenu = new QMenu();      // UI menu
@@ -48,13 +48,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow()
 {
+    data->save();
     delete ui;
 }
 
 void MainWindow::on_initDB_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Excel File (*.xlsx)"));
-    dbmanager = new database(fileName);
+    data->initFromFile(fileName);
 }
 
 void MainWindow::on_loginButton_clicked()
@@ -106,31 +107,19 @@ void MainWindow::on_teamsButton_triggered(QAction *arg1)
 
     if(arg1->iconText() == "All Teams")
     {
-        // IMPLEMENT: view all teams by team name
-
+        sortTeams(false);
         ui->sortAllStadium->setDisabled(false);
         ui->sortAllTeam->setDisabled(false);
-
-        for(int i = 0; i < 25; i++)
-            ui->teamTList->addItem("Test Team");
-
-        for(int i = 0; i < 25; i++)
-            ui->leagueTList->addItem("Test League");
-
-        for(int i = 0; i < 25; i++)
-            ui->stadiumTList->addItem("Test Stadium");
     }
     else if(arg1->iconText() == "American League Teams")
     {
-        // IMPLEMENT: view american league teams by team name
-
+        sortTeams(false, "American");
         ui->sortAllStadium->setDisabled(true);
         ui->sortAllTeam->setDisabled(true);
     }
     else if(arg1->iconText() == "National League Teams")
     {
-        // IMPLEMENT: view national league teams by stadium name
-
+        sortTeams(true, "National");
         ui->sortAllStadium->setDisabled(true);
         ui->sortAllTeam->setDisabled(true);
     }
@@ -138,14 +127,33 @@ void MainWindow::on_teamsButton_triggered(QAction *arg1)
 
 void MainWindow::on_sortAllTeam_clicked()
 {
-    // IMPLEMENT: view all teams sorted by team name
+   sortTeams(false);
 }
 
 void MainWindow::on_sortAllStadium_clicked()
 {
-    // IMPLEMENT: view all teams sorted by stadium name
+    sortTeams(true);
 }
 
+void MainWindow::sortTeams(bool byStadium, QString league)
+{
+    ui->leagueTList->clear();
+    ui->stadiumTList->clear();
+    ui->teamTList->clear();
+
+    for(unsigned int i = 0; i < teams.size(); i++)
+        if(league == "" || league == teams[i].getLeague()) {
+            QString temp = (byStadium)? teams[i].getStadiumName(): teams[i].getTeamName();
+            sort.insert(teams[i], temp);
+        }
+
+    while(!sort.empty()) {
+        ui->leagueTList->addItem(sort.top().getLeague());
+        ui->teamTList->addItem(sort.top().getTeamName());
+        ui->stadiumTList->addItem(sort.top().getStadiumName());
+        sort.removeTop();
+    }
+}
 
 void MainWindow::on_signOut_clicked()
 {

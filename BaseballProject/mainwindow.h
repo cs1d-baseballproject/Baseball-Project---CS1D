@@ -2,10 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QFileDialog>
 #include <QMenu>
 #include "priorityQueue.h"
-#include "team.h"
 #include "database.h"
 
 namespace Ui {
@@ -44,12 +42,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    priorityQueue<team, QString> teams;
-
-    database* dbmanager{nullptr};
-
+    priorityQueue<team, QString> sort;
+    std::vector<team> teams;
+    std::vector<Distance> edgeList;
+    database* data;
     bool isAdmin{false};
+
+    void sortTeams(bool byStadium, QString league = "");
 };
 
 #endif // MAINWINDOW_H

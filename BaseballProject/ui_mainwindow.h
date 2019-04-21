@@ -113,6 +113,9 @@ public:
         brush9.setStyle(Qt::SolidPattern);
         palette.setBrush(QPalette::Active, QPalette::ToolTipBase, brush9);
         palette.setBrush(QPalette::Active, QPalette::ToolTipText, brush4);
+        QBrush brush10(QColor(25, 23, 28, 128));
+        brush10.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::NoRole, brush10);
         palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
         palette.setBrush(QPalette::Inactive, QPalette::Button, brush1);
         palette.setBrush(QPalette::Inactive, QPalette::Light, brush2);
@@ -131,6 +134,7 @@ public:
         palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush8);
         palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush9);
         palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::NoRole, brush10);
         palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush);
         palette.setBrush(QPalette::Disabled, QPalette::Button, brush1);
         palette.setBrush(QPalette::Disabled, QPalette::Light, brush2);
@@ -146,11 +150,12 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::Highlight, brush5);
         palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush6);
         palette.setBrush(QPalette::Disabled, QPalette::Link, brush7);
-        QBrush brush10(QColor(183, 71, 42, 255));
-        brush10.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush10);
+        QBrush brush11(QColor(183, 71, 42, 255));
+        brush11.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush11);
         palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush9);
         palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::NoRole, brush10);
         MainWindow->setPalette(palette);
         MainWindow->setWindowOpacity(1);
         centralWidget = new QWidget(MainWindow);
@@ -378,10 +383,10 @@ public:
         invalidInput->setObjectName(QStringLiteral("invalidInput"));
         invalidInput->setGeometry(QRect(370, 390, 331, 21));
         QPalette palette1;
-        QBrush brush11(QColor(180, 37, 44, 255));
-        brush11.setStyle(Qt::SolidPattern);
-        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush11);
-        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush11);
+        QBrush brush12(QColor(180, 37, 44, 255));
+        brush12.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush12);
+        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush12);
         palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush);
         invalidInput->setPalette(palette1);
         stackedWidget->addWidget(loginPage);
@@ -457,7 +462,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

@@ -137,15 +137,12 @@ public:
 														//	element of the tree
 
 		// PROCESSING - up heap bubbling
-		while(!isRoot())
-		{
-			if(array[parent()]->key < array[current]->key)
-			{
-				node* temp = array[parent()];
-				array[parent()] = array[current];
-				array[current] = temp;
-			}
-			current = parent();
+        while(!isRoot() && array[parent()]->key > array[current]->key)
+        {
+            node* temp = array[parent()];
+            array[parent()] = array[current];
+            array[current] = temp;
+            current = parent();
 		}
 	}
 
@@ -183,21 +180,22 @@ public:
 			current = root();
 			while(flag && current != 0)
 			{
-				if(hasLeft() && array[current]->key < array[left()]->key)
+                int child;
+                if(hasRight())
+                    child = (array[left()]->key < array[right()]->key)? left(): right();
+                else if(hasLeft())
+                    child =  left();
+                else
+                    flag = false;
+
+                if(flag && array[current]->key > array[child]->key)
 				{
-					node* temp = array[left()];
-					array[left()] = array[current];
+                    node* temp = array[child];
+                    array[child] = array[current];
 					array[current] = temp;
-					current = left();
+                    current = child;
 				}
-				else if(hasRight() && array[current]->key < array[right()]->key)
-				{
-					node* temp = array[right()];
-					array[right()] = array[current];
-					array[current] = temp;
-					current = right();
-				}
-				else
+                else
 					flag = false;
 			}
 		}

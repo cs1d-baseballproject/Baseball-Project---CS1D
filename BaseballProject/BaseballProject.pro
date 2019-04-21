@@ -6,7 +6,6 @@
 
 QT       += core gui
 QT       += sql
-QT       += xlsx
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,21 +28,23 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    team.cpp \
-    souvenirs.cpp \
-    database.cpp
+        team.cpp \
+        souvenirs.cpp \
+        database.cpp \
+    distance.cpp
 
 HEADERS += \
         mainwindow.h \
         team.h \
         souvenirs.h \
-    souvenirs.h \
-    team.h \
-    priorityQueue.h \
-    database.h
+        souvenirs.h \
+        team.h \
+        priorityQueue.h \
+        database.h \
+    distance.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -51,7 +52,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    MLB Information.xlsx \
-    MLBInformation.xlsx
 
 include(3rdParty/qtxlsx/xlsx/qtxlsx.pri)
