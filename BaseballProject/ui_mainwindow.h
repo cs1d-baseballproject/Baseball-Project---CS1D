@@ -100,6 +100,12 @@ public:
     QPushButton *sortAllTeam;
     QLabel *label_6;
     QWidget *stadiumsPage;
+    QListWidget *stadiumList;
+    QListWidget *stadiumTeamList;
+    QListWidget *stadiumTypeList;
+    QLabel *label_24;
+    QLabel *label_25;
+    QLabel *stadiumListType;
     QWidget *cartPage;
     QWidget *tripPage;
     QWidget *infoPage;
@@ -718,6 +724,45 @@ public:
         stackedWidget->addWidget(teamsPage);
         stadiumsPage = new QWidget();
         stadiumsPage->setObjectName(QStringLiteral("stadiumsPage"));
+        stadiumList = new QListWidget(stadiumsPage);
+        stadiumList->setObjectName(QStringLiteral("stadiumList"));
+        stadiumList->setGeometry(QRect(40, 40, 271, 491));
+        stadiumList->setStyleSheet(QStringLiteral("QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}"));
+        stadiumList->setFrameShape(QFrame::NoFrame);
+        stadiumList->setFrameShadow(QFrame::Plain);
+        stadiumList->setAlternatingRowColors(true);
+        stadiumTeamList = new QListWidget(stadiumsPage);
+        stadiumTeamList->setObjectName(QStringLiteral("stadiumTeamList"));
+        stadiumTeamList->setGeometry(QRect(310, 40, 171, 491));
+        stadiumTeamList->setStyleSheet(QStringLiteral("QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}"));
+        stadiumTeamList->setFrameShape(QFrame::NoFrame);
+        stadiumTeamList->setFrameShadow(QFrame::Plain);
+        stadiumTeamList->setAlternatingRowColors(true);
+        stadiumTypeList = new QListWidget(stadiumsPage);
+        stadiumTypeList->setObjectName(QStringLiteral("stadiumTypeList"));
+        stadiumTypeList->setGeometry(QRect(481, 40, 141, 491));
+        stadiumTypeList->setStyleSheet(QStringLiteral("QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}"));
+        stadiumTypeList->setFrameShape(QFrame::NoFrame);
+        stadiumTypeList->setFrameShadow(QFrame::Plain);
+        stadiumTypeList->setAlternatingRowColors(true);
+        label_24 = new QLabel(stadiumsPage);
+        label_24->setObjectName(QStringLiteral("label_24"));
+        label_24->setGeometry(QRect(310, 10, 171, 31));
+        label_24->setFont(font5);
+        label_24->setStyleSheet(QStringLiteral("QLabel {color: rgb(137, 131, 149)}"));
+        label_24->setAlignment(Qt::AlignCenter);
+        label_25 = new QLabel(stadiumsPage);
+        label_25->setObjectName(QStringLiteral("label_25"));
+        label_25->setGeometry(QRect(40, 9, 271, 31));
+        label_25->setFont(font5);
+        label_25->setStyleSheet(QStringLiteral("QLabel {color: rgb(137, 131, 149)}"));
+        label_25->setAlignment(Qt::AlignCenter);
+        stadiumListType = new QLabel(stadiumsPage);
+        stadiumListType->setObjectName(QStringLiteral("stadiumListType"));
+        stadiumListType->setGeometry(QRect(480, 10, 141, 31));
+        stadiumListType->setFont(font5);
+        stadiumListType->setStyleSheet(QStringLiteral("QLabel {color: rgb(137, 131, 149)}"));
+        stadiumListType->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(stadiumsPage);
         cartPage = new QWidget();
         cartPage->setObjectName(QStringLiteral("cartPage"));
@@ -863,7 +908,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(4);
         adminStackedWidget->setCurrentIndex(2);
 
 
@@ -914,6 +959,9 @@ public:
         sortAllStadium->setText(QApplication::translate("MainWindow", "Stadium", Q_NULLPTR));
         sortAllTeam->setText(QApplication::translate("MainWindow", "Team", Q_NULLPTR));
         label_6->setText(QApplication::translate("MainWindow", "League", Q_NULLPTR));
+        label_24->setText(QApplication::translate("MainWindow", "Team", Q_NULLPTR));
+        label_25->setText(QApplication::translate("MainWindow", "Stadium", Q_NULLPTR));
+        stadiumListType->setText(QApplication::translate("MainWindow", "Type", Q_NULLPTR));
         infoTeam->setText(QApplication::translate("MainWindow", "Team Name", Q_NULLPTR));
         returnToTeamList->setText(QApplication::translate("MainWindow", "Back", Q_NULLPTR));
         label_10->setText(QApplication::translate("MainWindow", "Available Souvenirs", Q_NULLPTR));

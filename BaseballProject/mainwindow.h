@@ -53,6 +53,8 @@ private slots:
     void on_teamTList_itemDoubleClicked(QListWidgetItem *item);
     void on_returnToTeamList_clicked();
 
+    void on_stadiumsButton_triggered(QAction *arg1);
+
 private:
     Ui::MainWindow *ui;
     priorityQueue<team, QString> sort;
@@ -62,6 +64,7 @@ private:
     bool isAdmin{false};
 
     void sortTeams(bool byStadium, QString league = "");
+    void sortStadiums(QString);
 
     // admin line edits
     std::vector<QLineEdit*> modSouvName;

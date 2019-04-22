@@ -29,7 +29,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->teamsButton->setPopupMode(QToolButton::InstantPopup);
 
     // Initialize stadium menu
-    stadiumMenu->addAction(new QAction("All Stadiums", this));
+    stadiumMenu->addAction(new QAction("Stadiums by Park Typology", this));
+    stadiumMenu->addAction(new QAction("Stadiums by Date Opened", this));
+    stadiumMenu->addAction(new QAction("Stadiums by Seating Capacity", this));
     stadiumMenu->addAction(new QAction("Open Roof Stadiums", this));
     stadiumMenu->addAction(new QAction("Closest to Center Field", this));
     stadiumMenu->addAction(new QAction("Furthest from Center Field", this));
@@ -185,7 +187,12 @@ void MainWindow::on_signOut_clicked()
 void MainWindow::on_initDB_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Excel File (*.xlsx)"));
-    data->initFromFile(fileName);
+
+    if(fileName != "")
+        data->initFromFile(fileName);
+
+    for(auto it = teams.begin(); it != teams.end(); it++)
+        ui->adminStadiumList->addItem(it->getStadiumName());
 }
 
 // EDIT STADIUMS
@@ -352,6 +359,141 @@ void MainWindow::on_returnToTeamList_clicked()
 }
 
 
+
+void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
+{
+    priorityQueue<team, int> sortNums;
+    QString type;
+
+    ui->stadiumList->clear();
+    ui->stadiumTeamList->clear();
+    ui->stadiumTypeList->clear();
+    ui->stackedWidget->setCurrentWidget(ui->stadiumsPage);
+
+    if(arg1->iconText() == "Stadiums by Park Typology")
+    {
+       type = "Typology";
+       ui->stadiumListType->setText(type);
+
+       for(unsigned int i = 0; i < teams.size(); i++)
+       {
+           QString temp = teams[i].getParkTypology();
+           sort.insert(teams[i], temp);
+       }
+
+       while(!sort.empty()) {
+           ui->stadiumList->addItem(sort.top().getStadiumName());
+           ui->stadiumTeamList->addItem(sort.top().getTeamName());
+           ui->stadiumTypeList->addItem(sort.top().getParkTypology());
+           sort.removeTop();
+       }
+
+    }
+    else if(arg1->iconText() == "Stadiums by Date Opened")
+    {
+        type = "Date";
+        ui->stadiumListType->setText(type);
+
+        for(unsigned int i = 0; i < teams.size(); i++)
+        {
+            int temp = teams[i].getDateOpened();
+            sortNums.insert(teams[i], temp);
+        }
+
+        while(!sortNums.empty()) {
+            ui->stadiumList->addItem(sortNums.top().getStadiumName());
+            ui->stadiumTeamList->addItem(sortNums.top().getTeamName());
+            ui->stadiumTypeList->addItem(QString::number(sortNums.top().getDateOpened()));
+            sortNums.removeTop();
+        }
+    }
+    else if(arg1->iconText() == "Stadiums by Seating Capacity")
+    {
+        type = "Capacity";
+        ui->stadiumListType->setText(type);
+
+        for(unsigned int i = 0; i < teams.size(); i++)
+        {
+            int temp = teams[i].getSeatingCapacity();
+            sortNums.insert(teams[i], temp);
+        }
+
+        while(!sortNums.empty()) {
+            ui->stadiumList->addItem(sortNums.top().getStadiumName());
+            ui->stadiumTeamList->addItem(sortNums.top().getTeamName());
+            ui->stadiumTypeList->addItem(QString::number(sortNums.top().getSeatingCapacity()));
+            sortNums.removeTop();
+        }
+    }
+    else if(arg1->iconText() == "Open Roof Stadiums")
+    {
+        type = "Roof";
+        ui->stadiumListType->setText(type);
+
+        for(unsigned int i = 0; i < teams.size(); i++)
+            if("Open" == teams[i].getRoofType()) {
+                QString temp = teams[i].getTeamName();
+                sort.insert(teams[i], temp);
+            }
+
+        while(!sort.empty()) {
+            ui->stadiumList->addItem(sort.top().getStadiumName());
+            ui->stadiumTeamList->addItem(sort.top().getTeamName());
+            ui->stadiumTypeList->addItem(sort.top().getRoofType());
+            sort.removeTop();
+        }
+    }
+    else if(arg1->iconText() == "Closest to Center Field")
+    {
+        type = "Closest";
+        ui->stadiumListType->setText(type);
+
+        for(unsigned int i = 0; i < teams.size(); i++)
+        {
+            int temp = teams[i].getDistanceToCenter();
+            sortNums.insert(teams[i], temp);
+        }
+
+        int shortestDist = sortNums.top().getDistanceToCenter();
+        while(!sortNums.empty())
+        {
+            if(sortNums.top().getDistanceToCenter() == shortestDist) {
+                ui->stadiumList->addItem(sortNums.top().getStadiumName());
+                ui->stadiumTeamList->addItem(sortNums.top().getTeamName());
+                ui->stadiumTypeList->addItem(QString::number(sortNums.top().getDistanceToCenter()));
+                sortNums.removeTop();
+            }
+            else {
+                sortNums.removeTop();
+            }
+        }
+    }
+    else if(arg1->iconText() == "Furthest from Center Field")
+    {
+        type = "Furthest";
+        ui->stadiumListType->setText(type);
+
+        for(unsigned int i = 0; i < teams.size(); i++)
+        {
+            int temp = 1000 - teams[i].getDistanceToCenter();
+            sortNums.insert(teams[i], temp);
+        }
+
+        int greatestDist = sortNums.top().getDistanceToCenter();
+        while(!sortNums.empty())
+        {
+            if(sortNums.top().getDistanceToCenter() == greatestDist) {
+                ui->stadiumList->addItem(sortNums.top().getStadiumName());
+                ui->stadiumTeamList->addItem(sortNums.top().getTeamName());
+                ui->stadiumTypeList->addItem(QString::number(sortNums.top().getDistanceToCenter()));
+                sortNums.removeTop();
+            }
+            else {
+                sortNums.removeTop();
+            }
+        }
+    }
+}
 
 
 
