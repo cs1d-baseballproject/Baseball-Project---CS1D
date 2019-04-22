@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,28 +30,25 @@ SOURCES += \
         team.cpp \
         souvenirs.cpp \
         database.cpp \
-    distance.cpp \
-    orders.cpp
+        distance.cpp \
+        orders.cpp
 
 HEADERS += \
         mainwindow.h \
         team.h \
         souvenirs.h \
-        souvenirs.h \
-        team.h \
         priorityQueue.h \
         database.h \
-    distance.h \
-    orders.h
+        distance.h \
+        orders.h
 
 FORMS += \
         mainwindow.ui \
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 DISTFILES += \
+    Icons/stadium.jpg \
+    Icons/baseball.png \
+    Icons/cart.png \
+    Icons/tools.png
 
 include(3rdParty/qtxlsx/xlsx/qtxlsx.pri)
