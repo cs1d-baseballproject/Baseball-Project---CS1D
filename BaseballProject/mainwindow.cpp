@@ -43,6 +43,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tripButton->setMenu(tripMenu);
     ui->tripButton->setPopupMode(QToolButton::InstantPopup);
 
+    // Read from files into database
+    QString file[] = {"MLBInformation.xlsx", "Distance.xlsx", "Souvenirs.xlsx"};
+    for(int i = 0; i < 3; i++)
+        if(QFileInfo::exists(file[i]) && QFileInfo(file[i]).isFile())
+            data->initFromFile(file[i]);
+
     // Create and initialize a programmer menu for BFS, DFS and MST
 }
 
@@ -52,52 +58,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_initDB_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Excel File (*.xlsx)"));
-    data->initFromFile(fileName);
-}
-
-void MainWindow::on_loginButton_clicked()
-{
-    ui->invalidInput->hide();
-
-    if(!isAdmin)
-        ui->stackedWidget->setCurrentWidget(ui->loginPage);
-    else
-        ui->stackedWidget->setCurrentWidget(ui->adminPage);
-}
-
-void MainWindow::on_signIn_clicked()
-{
-    QString username = ui->user->text();
-    QString password = ui->password->text();
-
-    if(username == "username" && password == "password") // !!!NEEDS TO BE ENCRYPTED!!!
-    {
-        isAdmin = true;
-        ui->stackedWidget->setCurrentWidget(ui->adminPage);
-        ui->user->clear();
-        ui->password->clear();
-    }
-    else
-    {
-        ui->invalidInput->show();
-        ui->user->clear();
-        ui->password->clear();
-    }
-}
-
-void MainWindow::on_cancelLogin_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(0);
-}
-
+// HOME SCREEN OPERATIONS
+/*********************************************************************/
 void MainWindow::on_homeButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
 
+
+// TEAM LIST SCREEN OPERATIONS
+/*********************************************************************/
 void MainWindow::on_teamsButton_triggered(QAction *arg1)
 {
     ui->teamTList->clear();
@@ -155,8 +125,240 @@ void MainWindow::sortTeams(bool byStadium, QString league)
     }
 }
 
+
+// SIGN IN SCREEN OPERATIONS
+/*********************************************************************/
+void MainWindow::on_loginButton_clicked()
+{
+    ui->invalidInput->hide();
+    ui->adminStackedWidget->setCurrentWidget(ui->adminBlank);
+    ui->adminStadiumModified->setText("No stadium selected");
+    ui->adminStadiumList->clear();
+
+    if(!isAdmin)
+        ui->stackedWidget->setCurrentWidget(ui->loginPage);
+    else
+    {
+        for(auto it = teams.begin(); it != teams.end(); it++)
+            ui->adminStadiumList->addItem(it->getStadiumName());
+
+        ui->stackedWidget->setCurrentWidget(ui->adminPage);
+    }
+}
+
+void MainWindow::on_signIn_clicked()
+{
+    QString username = ui->user->text();
+    QString password = ui->password->text();
+
+    if(username == "username" && password == "password") // !!!NEEDS TO BE ENCRYPTED!!!
+    {
+        isAdmin = true;
+        for(auto it = teams.begin(); it != teams.end(); it++)
+            ui->adminStadiumList->addItem(it->getStadiumName());
+        ui->stackedWidget->setCurrentWidget(ui->adminPage);
+        ui->user->clear();
+        ui->password->clear();
+    }
+    else
+    {
+        ui->invalidInput->show();
+        ui->user->clear();
+        ui->password->clear();
+    }
+}
+
+void MainWindow::on_cancelLogin_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+// ADMIN SCREEN OPERATIONS
+/*********************************************************************/
 void MainWindow::on_signOut_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     isAdmin = false;
 }
+
+void MainWindow::on_initDB_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Excel File (*.xlsx)"));
+    data->initFromFile(fileName);
+}
+
+// EDIT STADIUMS
+void MainWindow::on_editStadiumsButton_clicked()
+{
+    if(ui->adminStadiumList->selectedItems().size() != 0)
+    {
+        unsigned int stadiumIndex = ui->adminStadiumList->currentRow();
+        ui->adminStackedWidget->setCurrentWidget(ui->modifyStadiums);
+        ui->adminStadiumModified->setText(teams.at(stadiumIndex).getStadiumName());
+
+        ui->lineEdit->setText(teams.at(stadiumIndex).getStadiumName());
+        ui->lineEdit_2->setText(QString::number(teams.at(stadiumIndex).getSeatingCapacity()));
+        ui->lineEdit_3->setText(teams.at(stadiumIndex).getPlayingSurface());
+        ui->lineEdit_4->setText(teams.at(stadiumIndex).getRoofType());
+        ui->lineEdit_5->setText(teams.at(stadiumIndex).getParkTypology());
+        ui->lineEdit_6->setText(QString::number(teams.at(stadiumIndex).getDateOpened()));
+        ui->lineEdit_7->setText(QString::number(teams.at(stadiumIndex).getDistanceToCenter()));
+        ui->lineEdit_8->setText(teams.at(stadiumIndex).getLocation());
+    }
+    else
+    {
+        QMessageBox::warning(this, "No Selection", "Please select a stadium!");
+    }
+}
+
+void MainWindow::on_saveStadiumModification_clicked()
+{
+    unsigned int index;
+    for(index = 0; index < teams.size(); index++)
+        if(teams.at(index).getStadiumName() == ui->adminStadiumModified->text())
+            break;
+
+    teams[index].setStadiumName((ui->lineEdit->text() == "")? teams[index].getStadiumName(): ui->lineEdit->text());
+    teams[index].setSeatingCapacity((ui->lineEdit_2->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getSeatingCapacity(): ui->lineEdit_2->text().toInt());
+    teams[index].setPlayingSurface((ui->lineEdit_3->text() == "")? teams[index].getPlayingSurface(): ui->lineEdit_3->text());
+    teams[index].setRoofType((ui->lineEdit_4->text() == "")? teams[index].getRoofType(): ui->lineEdit_4->text());
+    teams[index].setParkTypology((ui->lineEdit_5->text() == "")? teams[index].getParkTypology(): ui->lineEdit_5->text());
+    teams[index].setDateOpened((ui->lineEdit_6->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getDateOpened(): ui->lineEdit_6->text().toInt());
+    teams[index].setDistanceToCenter((ui->lineEdit_7->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getDistanceToCenter(): ui->lineEdit_7->text().toInt());
+    teams[index].setLocation((ui->lineEdit_8->text() == "")? teams[index].getLocation(): ui->lineEdit_8->text());
+}
+
+// EDIT SOUVENIRS
+void MainWindow::on_editSouvenirsButton_clicked()
+{
+    if(ui->adminStadiumList->selectedItems().size() != 0)
+    {
+        initLineEdits(ui->adminStadiumList->currentRow());
+        ui->adminStackedWidget->setCurrentWidget(ui->modifySouvenirs);
+        ui->adminStadiumModified->setText(teams.at(ui->adminStadiumList->currentRow()).getStadiumName());
+    }
+    else
+    {
+        QMessageBox::warning(this, "No Selection", "Please select a stadium!");
+    }
+}
+
+void MainWindow::on_saveSouvenirModification_clicked()
+{
+    unsigned int index;
+    for(index = 0; index < teams.size(); index++)
+        if(teams.at(index).getStadiumName() == ui->adminStadiumModified->text())
+            break;
+
+    teams.at(index).getSouvenirs().clear();
+
+    for(unsigned int i = 0; i < modSouvName.size(); i++)
+        if(modSouvName[i]->text() != "" && modSouvPrice[i]->text() != "")
+            teams.at(index).getSouvenirs().push_back(souvenirs(teams.at(index).getStadiumName(),
+                                                               modSouvName[i]->text(),
+                                                               modSouvPrice[i]->text().toDouble()));
+
+    initLineEdits(index);
+}
+
+void MainWindow::clearLineEdits()
+{
+    for(unsigned int i = 0; i < modSouvName.size(); i++)
+    {
+        delete modSouvName[i];
+        delete modSouvPrice[i];
+    }
+
+    modSouvName.clear();
+    modSouvPrice.clear();
+}
+
+void MainWindow::initLineEdits(unsigned int stadiumIndex)
+{
+    clearLineEdits();
+    ui->adminSVList->clear();
+    ui->adminPriceList->clear();
+
+    for(unsigned int i = 0; i < teams.at(stadiumIndex).getSouvenirs().size(); i++)
+    {
+        modSouvName.push_back(new QLineEdit(teams[stadiumIndex].getSouvenirs()[i].getSouvenirName()));
+        modSouvPrice.push_back(new QLineEdit(QString::number(teams[stadiumIndex].getSouvenirs()[i].getPrice())));
+        QListWidgetItem* t1 = new QListWidgetItem(ui->adminSVList);
+        ui->adminSVList->addItem(t1);
+        ui->adminSVList->setItemWidget(t1, modSouvName[i]);
+        QListWidgetItem* t2 = new QListWidgetItem(ui->adminPriceList);
+        ui->adminPriceList->addItem(t2);
+        ui->adminPriceList->setItemWidget(t2, modSouvPrice[i]);
+    }
+}
+
+void MainWindow::on_addNewSouvenir_clicked()
+{
+    modSouvName.push_back(new QLineEdit);
+    modSouvPrice.push_back(new QLineEdit);
+    QListWidgetItem* t1 = new QListWidgetItem(ui->adminSVList);
+    ui->adminSVList->addItem(t1);
+    ui->adminSVList->setItemWidget(t1, modSouvName[modSouvName.size() - 1]);
+    QListWidgetItem* t2 = new QListWidgetItem(ui->adminPriceList);
+    ui->adminPriceList->addItem(t2);
+    ui->adminPriceList->setItemWidget(t2, modSouvPrice[modSouvPrice.size() - 1]);
+}
+
+
+// INFORMATION SCREEN OPERATIONS
+/*********************************************************************/
+void MainWindow::on_teamTList_itemDoubleClicked(QListWidgetItem *item)
+{
+    ui->infoSVList->clear();
+    ui->infoSVPriceList->clear();
+
+    for(auto it = teams.begin(); it != teams.end(); it++)
+    {
+        if(it->getTeamName() == item->text())
+        {
+            ui->infoDate->setText(QString::number(it->getDateOpened()));
+            ui->infoRoof->setText(it->getRoofType());
+            ui->infoTeam->setText(it->getTeamName());
+            ui->infoDist2C->setText(QString::number(it->getDistanceToCenter()) + " feet");
+            ui->infoLeague->setText(it->getLeague() + " League");
+            ui->infoStadium->setText(it->getStadiumName());
+            ui->infoSurface->setText(it->getPlayingSurface());
+            ui->infoCapacity->setText(QString::number(it->getSeatingCapacity()));
+            ui->infoLocation->setText(it->getLocation());
+            ui->infoTypology->setText(it->getParkTypology());
+
+            for(auto svIt = it->getSouvenirs().begin(); svIt != it->getSouvenirs().end(); svIt++)
+            {
+                ui->infoSVList->addItem(svIt->getSouvenirName());
+                ui->infoSVPriceList->addItem("$" + QString::number(svIt->getPrice()));
+            }
+            break;
+        }
+    }
+    ui->stackedWidget->setCurrentWidget(ui->infoPage);
+}
+
+void MainWindow::on_returnToTeamList_clicked()
+{
+   // ui->teamTList->clear();
+    //ui->stadiumTList->clear();
+    //ui->leagueTList->clear();
+    ui->stackedWidget->setCurrentWidget(ui->teamsPage);
+
+   // sortTeams(false);
+   // ui->sortAllStadium->setDisabled(false);
+    //ui->sortAllTeam->setDisabled(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+

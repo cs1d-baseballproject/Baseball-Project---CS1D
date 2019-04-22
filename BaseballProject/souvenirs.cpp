@@ -19,6 +19,11 @@ void souvenirs::setPrice(double amount)
     price = amount;
 }
 
+QString souvenirs::getFrom() const
+{
+    return stadiumFrom;
+}
+
 QString souvenirs::getSouvenirName() const
 {
     return souvenirName;

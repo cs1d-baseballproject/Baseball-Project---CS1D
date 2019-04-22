@@ -31,7 +31,8 @@ SOURCES += \
         team.cpp \
         souvenirs.cpp \
         database.cpp \
-    distance.cpp
+    distance.cpp \
+    orders.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
         team.h \
         priorityQueue.h \
         database.h \
-    distance.h
+    distance.h \
+    orders.h
 
 FORMS += \
         mainwindow.ui \

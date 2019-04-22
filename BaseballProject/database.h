@@ -14,11 +14,7 @@ private:
     vector<team>* teams;
     vector<Distance>* edges;
 
-    /*!
-     * \brief defaultSouvenirList create a vector of souvenirs
-     * \return
-     */
-    vector<souvenirs>& defaultSouvenirList();
+    vector<souvenirs>& defaultSouvenirList(QString from);
 
 public:
     database(vector<team>& _teams, vector<Distance>& _edges): teams{&_teams}, edges{&_edges}{}

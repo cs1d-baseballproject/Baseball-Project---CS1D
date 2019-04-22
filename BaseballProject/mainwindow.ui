@@ -733,7 +733,7 @@ QToolButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="homePage">
      <widget class="QLabel" name="stadiumIcon">
@@ -825,8 +825,8 @@ QToolButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
      <widget class="QPushButton" name="initDB">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>200</y>
+        <x>610</x>
+        <y>530</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -886,6 +886,458 @@ QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
       </property>
       <property name="text">
        <string>Sign Out</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="adminStadiumList">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>275</width>
+        <height>491</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="adminStackedWidget">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>39</y>
+        <width>381</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="adminBlank"/>
+      <widget class="QWidget" name="modifySouvenirs">
+       <widget class="QListWidget" name="adminPriceList">
+        <property name="geometry">
+         <rect>
+          <x>201</x>
+          <y>70</y>
+          <width>101</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="adminSVList">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>70</y>
+          <width>171</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_14">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>20</y>
+          <width>221</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Nirmala UI</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {color: rgb(137, 131, 149)}</string>
+        </property>
+        <property name="text">
+         <string>Souvenirs</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="saveSouvenirModification">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>440</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Nirmala UI</family>
+          <pointsize>9</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addNewSouvenir">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>49</y>
+          <width>31</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Nirmala UI</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+        </property>
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>65</x>
+          <y>53</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add New Souvenir</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="modifyStadiums">
+       <widget class="QWidget" name="formLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>20</y>
+          <width>291</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Stadium Name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Capacity</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Playing Surface</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>Roof Type</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit_4">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>Ball-Park Typology</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEdit_5">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_21">
+           <property name="text">
+            <string>Date Opened</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEdit_6">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_22">
+           <property name="text">
+            <string>Distance to CF</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="lineEdit_7">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_23">
+           <property name="text">
+            <string>Location</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QLineEdit" name="lineEdit_8">
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{ color: rgb(0, 0, 0)}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="saveStadiumModification">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>440</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Nirmala UI</family>
+          <pointsize>9</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="editStadiumsButton">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>520</y>
+        <width>75</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Stadiums</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="editSouvenirsButton">
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>520</y>
+        <width>75</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Souvenirs</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>520</y>
+        <width>51</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edit:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="adminStadiumModified">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>10</y>
+        <width>251</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Current Stadium</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>10</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Editing Stadium:</string>
       </property>
      </widget>
     </widget>
@@ -1263,6 +1715,491 @@ QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 
       </property>
       <property name="text">
        <string>League</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="stadiumsPage"/>
+    <widget class="QWidget" name="cartPage"/>
+    <widget class="QWidget" name="tripPage"/>
+    <widget class="QWidget" name="infoPage">
+     <widget class="QLabel" name="infoTeam">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>781</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>48</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Team Name</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="returnToTeamList">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>520</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>9</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {background-color: rgb(25, 23, 28); color: rgb(137, 131, 149); border: none;}
+
+QPushButton:hover {background-color: #252328; color: rgb(255, 255, 255);}
+
+QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(30, 28, 34), stop: 1 #252328);  color: rgb(137, 131, 149);}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="infoSVList">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>120</y>
+        <width>150</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="infoSVPriceList">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>120</y>
+        <width>111</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>90</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(137, 131, 149)}</string>
+      </property>
+      <property name="text">
+       <string>Available Souvenirs</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>64</x>
+        <y>90</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(137, 131, 149)}</string>
+      </property>
+      <property name="text">
+       <string>Stadium Information</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="labels">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>120</y>
+        <width>121</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {alternate-background-color: rgb(42, 38, 47); background-color: rgb(25, 23, 28); color: rgb(137, 131, 149)}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>false</bool>
+      </property>
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>Stadium:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Location:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Seating Capacity:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Date Opened:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Playing Surface:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Ball Park Typology:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Distance to Center Field:</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Roof Type:</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="infoStadium">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>120</y>
+        <width>291</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>Name</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoLocation">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>150</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>Location</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoCapacity">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>210</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>100</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoDate">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>260</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>1907</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoSurface">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>320</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>Grass</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoTypology">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>380</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>modern</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoDist2C">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>430</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>400</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoRoof">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>470</y>
+        <width>291</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>retractable</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="infoLeague">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>59</y>
+        <width>781</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Nirmala UI</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {color: rgb(255, 255, 255)}</string>
+      </property>
+      <property name="text">
+       <string>American League</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

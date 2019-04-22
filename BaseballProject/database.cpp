@@ -1,13 +1,13 @@
 #include "database.h"
 
-vector<souvenirs>& database::defaultSouvenirList()
+vector<souvenirs>& database::defaultSouvenirList(QString from)
 {
     vector<souvenirs>* temp = new vector<souvenirs>;
-    temp->push_back(souvenirs("Baseball cap", 22.99));
-    temp->push_back(souvenirs("Baseball bat", 89.39));
-    temp->push_back(souvenirs("Team pennant", 17.99));
-    temp->push_back(souvenirs("Autographed baseball", 25.99));
-    temp->push_back(souvenirs("Team jersey", 199.99));
+    temp->push_back(souvenirs(from, "Baseball cap", 22.99));
+    temp->push_back(souvenirs(from, "Baseball bat", 89.39));
+    temp->push_back(souvenirs(from, "Team pennant", 17.99));
+    temp->push_back(souvenirs(from, "Autographed baseball", 25.99));
+    temp->push_back(souvenirs(from, "Team jersey", 199.99));
 
     return *temp;
 }
@@ -17,14 +17,13 @@ void database::initFromFile(QString path)
     QXlsx::Document document(path);
     int index = 2;
 
-    QString file;
     for(int i = 1; i <= path.size(); i++)
         if(path.at(path.size() - i) == '/') {
-            file = path.right(i - 1);
+            path = path.right(i - 1);
             break;
         }
 
-    if(file.at(0) == 'S' && !teams->empty())
+    if(path.at(0) == 'S' && !teams->empty())
         for(unsigned int i = 0; i < teams->size(); i++)
             teams->at(i).getSouvenirs().clear();
 
@@ -32,7 +31,7 @@ void database::initFromFile(QString path)
     temp = document.read(temp.append(QString::number(index))).toString();
     while(temp != "")
     {
-        if(file.at(0) == 'D') {
+        if(path.at(0) == 'D') {
             QString data[] = {"A", "B", "C"};
             QString from = document.read(data[0].append(QString::number(index))).toString();
             QString to = document.read(data[1].append(QString::number(index))).toString();
@@ -40,7 +39,7 @@ void database::initFromFile(QString path)
 
             edges->push_back(Distance(from, to, dist));
         }
-        else if (file.at(0) == 'M') {
+        else if (path.at(0) == 'M') {
             QString data[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             QString teamN = document.read(data[0].append(QString::number(index))).toString();
             QString stadium = document.read(data[1].append(QString::number(index))).toString();
@@ -55,9 +54,9 @@ void database::initFromFile(QString path)
 
             teams->push_back(team(teamN, league, stadium, seatingCap, location,
                                   surface, date, dist2Cfield.left(3).toInt(), typology, roof,
-                                  defaultSouvenirList()));
+                                  defaultSouvenirList(stadium)));
         }
-        else if(file.at(0) == 'S') {
+        else if(path.at(0) == 'S') {
             QString data[] = {"A", "B", "C"};
             QString from = document.read(data[0].append(QString::number(index))).toString();
             QString souvenirName = document.read(data[1].append(QString::number(index))).toString();
@@ -65,7 +64,7 @@ void database::initFromFile(QString path)
 
             for(unsigned int i = 0; i < teams->size(); i++)
                 if(teams->at(i).getStadiumName() == from)
-                    teams->at(i).getSouvenirs().push_back(souvenirs(souvenirName, price));
+                    teams->at(i).getSouvenirs().push_back(souvenirs(from, souvenirName, price));
         }
         index++;
         temp = "A";
