@@ -3,7 +3,7 @@
 // Constructor
 team::team(QString tName, QString tLeague, QString sName, int seats, QString loc,
            QString play, int date, int dist, QString type, QString roof,
-           vector<souvenirs>& souv):
+           std::vector<souvenirs>& souv):
            teamName{tName}, league{tLeague}, stadiumName{sName}, seatingCapacity{seats},
            location{loc}, playingSurface{play}, dateOpened{date}, distanceToCenter{dist},
            parkTypology{type}, roofType{roof}, availableSouvenirs{souv}{}
@@ -109,7 +109,7 @@ QString team::getRoofType() const
     return roofType;
 }
 
-vector<souvenirs>& team::getSouvenirs()
+std::vector<souvenirs>& team::getSouvenirs()
 {
     return  availableSouvenirs;
 }

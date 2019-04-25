@@ -22,7 +22,7 @@ private:
     QString parkTypology;
     QString roofType;
 
-    vector<souvenirs> availableSouvenirs;
+    std::vector<souvenirs> availableSouvenirs;
 
 public:
     // Default Constructor
@@ -57,7 +57,7 @@ public:
     int getDistanceToCenter() const;
     QString getParkTypology() const;
     QString getRoofType() const;
-    vector<souvenirs>& getSouvenirs();
+    std::vector<souvenirs>& getSouvenirs();
 	
 };
 

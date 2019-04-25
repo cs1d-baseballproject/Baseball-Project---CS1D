@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <QString>
+#include <vector>
 
-using namespace std;
+//using namespace std;
 
 class souvenirs
 {

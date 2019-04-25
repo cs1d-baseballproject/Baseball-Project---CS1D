@@ -264,7 +264,7 @@ void MainWindow::on_saveSouvenirModification_clicked()
         if(modSouvName[i]->text() != "" && modSouvPrice[i]->text() != "")
             teams.at(index).getSouvenirs().push_back(souvenirs(teams.at(index).getStadiumName(),
                                                                modSouvName[i]->text(),
-                                                               modSouvPrice[i]->text().toDouble()));
+                                                               abs(modSouvPrice[i]->text().toDouble())));
 
     initLineEdits(index);
 }
@@ -348,23 +348,19 @@ void MainWindow::on_teamTList_itemDoubleClicked(QListWidgetItem *item)
 
 void MainWindow::on_returnToTeamList_clicked()
 {
-   // ui->teamTList->clear();
-    //ui->stadiumTList->clear();
-    //ui->leagueTList->clear();
     ui->stackedWidget->setCurrentWidget(ui->teamsPage);
-
-   // sortTeams(false);
-   // ui->sortAllStadium->setDisabled(false);
-    //ui->sortAllTeam->setDisabled(false);
 }
 
 
-
+// STADIUM LIST SCREEN OPERATIONS
+/*********************************************************************/
 void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
 {
     priorityQueue<team, int> sortNums;
     QString type;
 
+    ui->stadiumAdditionalInfo->setText("");
+    ui->stadiumAdditionalInfoLabel->setText("");
     ui->stadiumList->clear();
     ui->stadiumTeamList->clear();
     ui->stadiumTypeList->clear();
@@ -409,12 +405,14 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
     }
     else if(arg1->iconText() == "Stadiums by Seating Capacity")
     {
+        int total = 0;
         type = "Capacity";
         ui->stadiumListType->setText(type);
 
         for(unsigned int i = 0; i < teams.size(); i++)
         {
             int temp = teams[i].getSeatingCapacity();
+            total += temp;
             sortNums.insert(teams[i], temp);
         }
 
@@ -424,9 +422,13 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
             ui->stadiumTypeList->addItem(QString::number(sortNums.top().getSeatingCapacity()));
             sortNums.removeTop();
         }
+
+        ui->stadiumAdditionalInfo->setNum(total);
+        ui->stadiumAdditionalInfoLabel->setText("Total Capacity:");
     }
     else if(arg1->iconText() == "Open Roof Stadiums")
     {
+        int count = 0;
         type = "Roof";
         ui->stadiumListType->setText(type);
 
@@ -434,6 +436,7 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
             if("Open" == teams[i].getRoofType()) {
                 QString temp = teams[i].getTeamName();
                 sort.insert(teams[i], temp);
+                count++;
             }
 
         while(!sort.empty()) {
@@ -442,6 +445,9 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
             ui->stadiumTypeList->addItem(sort.top().getRoofType());
             sort.removeTop();
         }
+
+        ui->stadiumAdditionalInfo->setNum(count);
+        ui->stadiumAdditionalInfoLabel->setText("Number of open roof stadiums:");
     }
     else if(arg1->iconText() == "Closest to Center Field")
     {

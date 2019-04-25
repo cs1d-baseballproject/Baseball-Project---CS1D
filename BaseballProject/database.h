@@ -11,13 +11,13 @@ class database
 {
 private:
     // edge list and team list
-    vector<team>* teams;
-    vector<Distance>* edges;
+    std::vector<team>* teams;
+    std::vector<Distance>* edges;
 
-    vector<souvenirs>& defaultSouvenirList(QString from);
+    std::vector<souvenirs>& defaultSouvenirList(QString from);
 
 public:
-    database(vector<team>& _teams, vector<Distance>& _edges): teams{&_teams}, edges{&_edges}{}
+    database(std::vector<team>& _teams, std::vector<Distance>& _edges): teams{&_teams}, edges{&_edges}{}
 
     void initFromFile(QString);
 

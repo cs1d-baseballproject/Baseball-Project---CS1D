@@ -1,8 +1,8 @@
 #include "database.h"
 
-vector<souvenirs>& database::defaultSouvenirList(QString from)
+std::vector<souvenirs>& database::defaultSouvenirList(QString from)
 {
-    vector<souvenirs>* temp = new vector<souvenirs>;
+    std::vector<souvenirs>* temp = new std::vector<souvenirs>;
     temp->push_back(souvenirs(from, "Baseball cap", 22.99));
     temp->push_back(souvenirs(from, "Baseball bat", 89.39));
     temp->push_back(souvenirs(from, "Team pennant", 17.99));
