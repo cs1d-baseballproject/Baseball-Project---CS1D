@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow()
 {
     data->save();
+    clearLineEdits();
     delete ui;
 }
 
@@ -226,6 +227,17 @@ void MainWindow::on_saveStadiumModification_clicked()
         if(teams.at(index).getStadiumName() == ui->adminStadiumModified->text())
             break;
 
+    if(ui->lineEdit->text() != teams[index].getStadiumName())
+    {
+        ui->adminStadiumList->clear();
+        for(unsigned int i = 0; i < teams.size(); i++)
+            if(i != index)
+                ui->adminStadiumList->addItem(teams[i].getStadiumName());
+            else {
+                ui->adminStadiumList->addItem(ui->lineEdit->text());
+            }
+    }
+
     teams[index].setStadiumName((ui->lineEdit->text() == "")? teams[index].getStadiumName(): ui->lineEdit->text());
     teams[index].setSeatingCapacity((ui->lineEdit_2->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getSeatingCapacity(): ui->lineEdit_2->text().toInt());
     teams[index].setPlayingSurface((ui->lineEdit_3->text() == "")? teams[index].getPlayingSurface(): ui->lineEdit_3->text());
@@ -234,6 +246,9 @@ void MainWindow::on_saveStadiumModification_clicked()
     teams[index].setDateOpened((ui->lineEdit_6->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getDateOpened(): ui->lineEdit_6->text().toInt());
     teams[index].setDistanceToCenter((ui->lineEdit_7->text() == "" || ui->lineEdit_7->text().toInt() == 0)? teams[index].getDistanceToCenter(): ui->lineEdit_7->text().toInt());
     teams[index].setLocation((ui->lineEdit_8->text() == "")? teams[index].getLocation(): ui->lineEdit_8->text());
+    ui->adminStadiumModified->setText((ui->lineEdit->text() == "")? teams[index].getStadiumName(): ui->lineEdit->text());
+
+
 }
 
 // EDIT SOUVENIRS
