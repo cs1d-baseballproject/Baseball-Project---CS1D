@@ -17,7 +17,7 @@ Download zip file and extract or clone the repo to the desired location.
 
 ## Deployment
 
-Open the project file (.pro) in Qt Creator and run. Important to note, do not use Qt's shadow building. This setting can be changed in the project settings pane.
+Open the project file (.pro) in Qt Creator. Important to note, do not use Qt's shadow building. This setting can be changed in the project settings pane. Before running the project in QT, run qmake. If the user interface appears squished, try lowering your resolution or change the size scaling to 100% in the display settings of your computer.
 
 ## Built With
 
