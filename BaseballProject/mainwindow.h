@@ -55,6 +55,9 @@ private slots:
 
     void on_stadiumsButton_triggered(QAction *arg1);
 
+    // CART/CHECKOUT SCREEN
+    void on_cartButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     priorityQueue<team, QString> sort;

@@ -61,6 +61,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 // HOME SCREEN OPERATIONS
 /*********************************************************************/
 void MainWindow::on_homeButton_clicked()
@@ -516,7 +517,12 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
     }
 }
 
-
+// CART/ORDER SCREEN
+/*********************************************************************/
+void MainWindow::on_cartButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->cartPage);
+}
 
 
 
