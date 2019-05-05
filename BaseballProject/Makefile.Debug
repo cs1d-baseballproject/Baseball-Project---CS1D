@@ -434,6 +434,7 @@ debug/moc_mainwindow.cpp: mainwindow.h \
 		souvenirs.h \
 		distance.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/QtDebug \
+		orders.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.12.3/mingw73_32/bin/moc.exe
 	C:\Qt\5.12.3\mingw73_32\bin\moc.exe $(DEFINES) --include "C:/Users/mimib/Documents/Computer Science/CS 1D Project 2 - Baseball/Baseball-Project---CS1D/BaseballProject/debug/moc_predefs.h" -IC:/Qt/5.12.3/mingw73_32/mkspecs/win32-g++ -I"C:/Users/mimib/Documents/Computer Science/CS 1D Project 2 - Baseball/Baseball-Project---CS1D/BaseballProject" -I"C:/Users/mimib/Documents/Computer Science/CS 1D Project 2 - Baseball/Baseball-Project---CS1D/BaseballProject/3rdParty/qtxlsx/xlsx" -IC:/Qt/5.12.3/mingw73_32/include -IC:/Qt/5.12.3/mingw73_32/include/QtWidgets -IC:/Qt/5.12.3/mingw73_32/include/QtGui/5.12.3 -IC:/Qt/5.12.3/mingw73_32/include/QtGui/5.12.3/QtGui -IC:/Qt/5.12.3/mingw73_32/include/QtGui -IC:/Qt/5.12.3/mingw73_32/include/QtANGLE -IC:/Qt/5.12.3/mingw73_32/include/QtCore/5.12.3 -IC:/Qt/5.12.3/mingw73_32/include/QtCore/5.12.3/QtCore -IC:/Qt/5.12.3/mingw73_32/include/QtCore -IR:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IR:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IR:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IR:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IR:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IR:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindow.h -o debug\moc_mainwindow.cpp
@@ -735,6 +736,7 @@ debug/main.o: main.cpp mainwindow.h \
 		souvenirs.h \
 		distance.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/QtDebug \
+		orders.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QApplication \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/qcoreapplication.h \
@@ -909,8 +911,8 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		souvenirs.h \
 		distance.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/QtDebug \
+		orders.h \
 		ui_mainwindow.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QAction \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QApplication \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtCore/qcoreapplication.h \
@@ -918,8 +920,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qbuttongroup.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QFormLayout \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qformlayout.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QLayout \
@@ -927,8 +927,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qlayoutitem.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qheaderview.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QLabel \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/qlabel.h \
 		C:/Qt/5.12.3/mingw73_32/include/QtWidgets/QLineEdit \

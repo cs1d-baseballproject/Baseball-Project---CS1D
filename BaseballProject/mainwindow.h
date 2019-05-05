@@ -8,6 +8,7 @@
 #include <QListWidget>
 #include "priorityQueue.h"
 #include "database.h"
+#include "orders.h"
 
 namespace Ui {
 class MainWindow;
@@ -55,7 +56,7 @@ private slots:
 
     void on_stadiumsButton_triggered(QAction *arg1);
 
-    // CART/CHECKOUT SCREEN
+    // RECEIPT SCREEN
     void on_cartButton_clicked();
 
 private:
@@ -63,6 +64,7 @@ private:
     priorityQueue<team, QString> sort;
     std::vector<team> teams;
     std::vector<Distance> edgeList;
+    Orders orders;
     database* data;
     bool isAdmin{false};
 
