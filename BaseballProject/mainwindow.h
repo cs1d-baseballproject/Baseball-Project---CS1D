@@ -8,6 +8,7 @@
 #include <QListWidget>
 #include "priorityQueue.h"
 #include "database.h"
+#include "orders.h"
 #include "trip.h"
 
 namespace Ui {
@@ -57,6 +58,9 @@ private slots:
 
     // CART/CHECKOUT SCREEN
     void on_cartButton_clicked();
+    void on_addToCart_clicked();
+    void on_cartConfirm_clicked();
+    void on_cartCancel_clicked();
 
     // TRIP SCREEN
     void on_tripButton_triggered(QAction *arg1);
@@ -65,8 +69,9 @@ private slots:
     void on_tripConfirm_clicked();
     void on_resultContinue_clicked();
     void on_tripContinue_2_clicked();
-
     void on_laTripConfirm_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -87,6 +92,10 @@ private:
     std::vector<int> stadiumsToVisit;
     void initInfoScreen(int index, QString stadium = "");
     int currentStadium;
+
+    // Orders
+    Orders orders;
+    void initCart();
 
     // Admin line edits (for adding souvenirs)
     std::vector<QLineEdit*> modSouvName;

@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->homeButton->setIconSize(QSize(32, 32));
     ui->loginButton->setIconSize(QSize(32, 32));
     ui->cartButton->setIconSize(QSize(32, 32));
+    ui->qtyOfSouvenir->setRange(1, 100);
 
     // Initialize team menu
     teamMenu->addAction(new QAction("All Teams", this));
@@ -537,7 +538,100 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
 /*********************************************************************/
 void MainWindow::on_cartButton_clicked()
 {
+    initCart();
+}
+
+void MainWindow::on_cartConfirm_clicked()
+{
+    orders.clearOrders();
+    ui->stackedWidget->setCurrentWidget(ui->homePage);
+}
+
+void MainWindow::on_cartCancel_clicked()
+{
+    orders.clearOrders();
+    ui->stackedWidget->setCurrentWidget(ui->homePage);
+}
+
+void MainWindow::initCart()
+{
+    ui->qtyOfSouvenir->hide();
+    ui->listWidget_receipt_stadiums->clear();
+    ui->listWidget_receipt_price->clear();
+    ui->listWidget_receipt_quantity->clear();
+    ui->listWidget_receipt_souvenirs->clear();
+    ui->listWidget_stadiumTotals->clear();
+    ui->listWidget_totals->clear();
+    ui->grandTotal->clear();
+
     ui->stackedWidget->setCurrentWidget(ui->cartPage);
+
+    Orders temp = orders;
+    const unsigned int SIZE = temp.getSize();
+
+    if(!temp.isEmpty())
+    {
+        for(unsigned int j = 0; j < teams.size(); j++) {
+            bool flag = true;
+            for(unsigned int i = 0; i < SIZE; i++) {
+                if(teams[j].getStadiumName() == orders.getStadium(i)) {
+                    QString stadiumName = (flag)? temp.getStadium(i): " ";
+                    double stadiumTotal = temp.getStadiumTotal(stadiumName);
+                    int quantity = temp.getQty(i);
+                    souvenirs souvenir = temp.getItem(i);
+                    QString itemName = souvenir.getSouvenirName();
+                    double price = souvenir.getPrice();
+
+                    if(flag) {
+                        ui->listWidget_stadiumTotals->addItem(" ");
+                        ui->listWidget_totals->addItem(" ");
+                        ui->listWidget_receipt_stadiums->addItem(" ");
+                        ui->listWidget_receipt_souvenirs->addItem(" ");
+                        ui->listWidget_receipt_price->addItem(" ");
+                        ui->listWidget_receipt_quantity->addItem(" ");
+                        ui->listWidget_totals->addItem("$ " + QString::number(stadiumTotal, 'f', 2));
+                    }
+                    else
+                        ui->listWidget_totals->addItem(" ");
+
+                    ui->listWidget_stadiumTotals->addItem(stadiumName);
+                    ui->listWidget_receipt_stadiums->addItem(stadiumName);
+                    ui->listWidget_receipt_souvenirs->addItem(itemName);
+                    ui->listWidget_receipt_price->addItem("$ " +  QString::number(price, 'f', 2));
+                    ui->listWidget_receipt_quantity->addItem(QString::number(quantity, 'f', 0));
+                    flag = false;
+                }
+            }
+        }
+        double grandTotal   = temp.getGrandTotal();
+        ui->grandTotal->setText("$ " + QString::number(grandTotal, 'f', 2));
+    }
+    else
+    {
+        ui->listWidget_stadiumTotals->addItem("--");
+        ui->listWidget_totals->addItem("--");
+        ui->listWidget_receipt_stadiums->addItem("--");
+        ui->listWidget_receipt_souvenirs->addItem("--");
+        ui->listWidget_receipt_price->addItem("--");
+        ui->listWidget_receipt_quantity->addItem("--");
+        ui->grandTotal->setText("--");
+    }
+}
+
+void MainWindow::on_addToCart_clicked()
+{
+    if(ui->infoSVList->selectedItems().size() != 0) {
+        auto it = teams.begin();
+        for(; it != teams.end(); it++)
+            if(it->getTeamName() == ui->infoTeam->text())
+
+
+        orders.addOrder(it->getSouvenirs().at(ui->infoSVList->currentRow()),
+                        ui->qtyOfSouvenir->value());
+    }
+    else {
+        QMessageBox::warning(this, "No Selection", "Please select a souvenir!");
+    }
 }
 
 
@@ -700,6 +794,7 @@ void MainWindow::on_resultContinue_clicked()
     ui->tripContinue_2->show();
     ui->returnToTeamList->hide();
     ui->progressBar->show();
+    ui->qtyOfSouvenir->show();
     currentStadium = 0;
 
     if(currentStadium < ui->resultFrom->count()) {
@@ -707,7 +802,7 @@ void MainWindow::on_resultContinue_clicked()
         initInfoScreen(trips->indexOf(ui->resultFrom->item(currentStadium)->text()));
     }
     else
-        ui->stackedWidget->setCurrentWidget(ui->cartPage);
+        initCart();
 }
 
 void MainWindow::on_tripContinue_2_clicked()
@@ -717,7 +812,7 @@ void MainWindow::on_tripContinue_2_clicked()
         initInfoScreen(trips->indexOf(ui->resultFrom->item(currentStadium)->text()));
     }
     else
-        ui->stackedWidget->setCurrentWidget(ui->cartPage);
+        initCart();
 }
 
 void MainWindow::on_laTripConfirm_clicked()
@@ -735,3 +830,5 @@ void MainWindow::on_laTripConfirm_clicked()
     else
         QMessageBox::warning(this, "No Selection", "Please select a team!");
 }
+
+

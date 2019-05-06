@@ -434,9 +434,11 @@ debug/moc_mainwindow.cpp: ../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QMainWi
 		souvenirs.h \
 		distance.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QtDebug \
+		orders.h \
 		trip.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		graph.h \
+		adjlistgraph.h \
 		mainwindow.h \
 		debug/moc_predefs.h \
 		../../../Qt/5.9.1/mingw53_32/bin/moc.exe
@@ -731,9 +733,11 @@ debug/main.o: main.cpp mainwindow.h \
 		souvenirs.h \
 		distance.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QtDebug \
+		orders.h \
 		trip.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		graph.h \
+		adjlistgraph.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QApplication \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qapplication.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -905,11 +909,12 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		souvenirs.h \
 		distance.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QtDebug \
+		orders.h \
 		trip.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QDebug \
 		graph.h \
+		adjlistgraph.h \
 		ui_mainwindow.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QAction \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QApplication \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qapplication.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -917,8 +922,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtGui/qguiapplication.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtGui/qinputmethod.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QCheckBox \
+		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qcheckbox.h \
+		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QFormLayout \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qformlayout.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QLayout \
@@ -926,8 +932,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qgridlayout.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QHeaderView \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qheaderview.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QLabel \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qlabel.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QLineEdit \
@@ -936,14 +940,12 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtGui/qtextformat.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtGui/qpen.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtGui/qtextoption.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QListView \
+		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QProgressBar \
+		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qprogressbar.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QPushButton \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qpushbutton.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qabstractbutton.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QStackedWidget \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qstackedwidget.h \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QTableView \
-		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qtableview.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QToolButton \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/qtoolbutton.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtWidgets/QWidget
@@ -1276,6 +1278,7 @@ debug/trip.o: trip.cpp trip.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		graph.h \
+		adjlistgraph.h \
 		team.h \
 		../../../Qt/5.9.1/mingw53_32/include/QtCore/QString \
 		souvenirs.h \
