@@ -537,7 +537,52 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
 /*********************************************************************/
 void MainWindow::on_cartButton_clicked()
 {
+
+    ui->listWidget_receipt_stadiums->clear();
+    ui->listWidget_receipt_price->clear();
+    ui->listWidget_receipt_quantity->clear();
+    ui->listWidget_receipt_souvenirs->clear();
+    ui->listWidget_stadiumTotals->clear();
+    ui->listWidget_totals->clear();
+    ui->grandTotal->clear();
+
     ui->stackedWidget->setCurrentWidget(ui->cartPage);
+
+    Orders temp = orders;
+    const unsigned int SIZE = temp.getSize();
+
+    if(!temp.isEmpty())
+    {
+        for(unsigned int i = 0; i < SIZE; i++)
+        {
+            QString stadiumName = temp.getStadium(i);
+            double stadiumTotal = temp.getStadiumTotal(stadiumName);
+            double grandTotal   = temp.getGrandTotal();
+            int quantity = temp.getQty(i);
+            souvenirs souvenir = temp.getItem(i);
+            QString itemName = souvenir.getSouvenirName();
+            double price = souvenir.getPrice();
+
+
+            ui->listWidget_stadiumTotals->addItem(stadiumName);
+            ui->listWidget_totals->addItem("$ " + QString::number(stadiumTotal, 'f', 2));
+            ui->listWidget_receipt_stadiums->addItem(stadiumName);
+            ui->listWidget_receipt_souvenirs->addItem(itemName);
+            ui->listWidget_receipt_price->addItem("$ " +  QString::number(price, 'f', 2));
+            ui->listWidget_receipt_quantity->addItem(QString::number(quantity, 'f', 0));
+            ui->grandTotal->setText("$ " + QString::number(grandTotal, 'f', 2));
+        }
+    }
+    else
+    {
+        ui->listWidget_stadiumTotals->addItem("--");
+        ui->listWidget_totals->addItem("--");
+        ui->listWidget_receipt_stadiums->addItem("--");
+        ui->listWidget_receipt_souvenirs->addItem("--");
+        ui->listWidget_receipt_price->addItem("--");
+        ui->listWidget_receipt_quantity->addItem("--");
+        ui->grandTotal->setText("--");
+    }
 }
 
 

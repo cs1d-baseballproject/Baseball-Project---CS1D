@@ -8,6 +8,7 @@
 #include <QListWidget>
 #include "priorityQueue.h"
 #include "database.h"
+#include "orders.h"
 #include "trip.h"
 
 namespace Ui {
@@ -87,6 +88,9 @@ private:
     std::vector<int> stadiumsToVisit;
     void initInfoScreen(int index, QString stadium = "");
     int currentStadium;
+
+    // Orders
+    Orders orders;
 
     // Admin line edits (for adding souvenirs)
     std::vector<QLineEdit*> modSouvName;
