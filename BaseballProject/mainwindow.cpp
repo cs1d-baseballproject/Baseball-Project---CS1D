@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QDebug"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), data{new database(teams, edgeList)}
 {
@@ -42,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     tripMenu->addAction(new QAction("Angels Stadium Trip", this));
     tripMenu->addAction(new QAction("Customizable Trip", this));
     tripMenu->addAction(new QAction("Comerica Park Trip", this));
+    tripMenu->addAction(new QAction("MST", this));
+    tripMenu->addAction(new QAction("DFS", this));
+    tripMenu->addAction(new QAction("BFS", this));
     ui->tripButton->setMenu(tripMenu);
     ui->tripButton->setPopupMode(QToolButton::InstantPopup);
 
@@ -51,8 +53,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         if(QFileInfo::exists(file[i]) && QFileInfo(file[i]).isFile())
             data->initFromFile(file[i]);
 
-    // Create and initialize a programmer menu for BFS, DFS and MST
-
+    // Initialize graphs
+    if(!(teams.empty() || edgeList.empty()))
+        trips = new trip(teams, edgeList);
 }
 
 MainWindow::~MainWindow()
@@ -203,7 +206,7 @@ void MainWindow::on_editStadiumsButton_clicked()
 {
     if(ui->adminStadiumList->selectedItems().size() != 0)
     {
-        unsigned int stadiumIndex = static_cast<unsigned int>(ui->adminStadiumList->currentRow());
+        unsigned int stadiumIndex = ui->adminStadiumList->currentRow();
         ui->adminStackedWidget->setCurrentWidget(ui->modifyStadiums);
         ui->adminStadiumModified->setText(teams.at(stadiumIndex).getStadiumName());
 
@@ -258,9 +261,9 @@ void MainWindow::on_editSouvenirsButton_clicked()
 {
     if(ui->adminStadiumList->selectedItems().size() != 0)
     {
-        initLineEdits(static_cast<unsigned int>(ui->adminStadiumList->currentRow()));
+        initLineEdits(ui->adminStadiumList->currentRow());
         ui->adminStackedWidget->setCurrentWidget(ui->modifySouvenirs);
-        ui->adminStadiumModified->setText(teams.at(static_cast<unsigned int>(ui->adminStadiumList->currentRow())).getStadiumName());
+        ui->adminStadiumModified->setText(teams.at(ui->adminStadiumList->currentRow()).getStadiumName());
     }
     else
     {
@@ -334,38 +337,49 @@ void MainWindow::on_addNewSouvenir_clicked()
 /*********************************************************************/
 void MainWindow::on_teamTList_itemDoubleClicked(QListWidgetItem *item)
 {
-    ui->infoSVList->clear();
-    ui->infoSVPriceList->clear();
-
-    for(auto it = teams.begin(); it != teams.end(); it++)
-    {
-        if(it->getTeamName() == item->text())
-        {
-            ui->infoDate->setText(QString::number(it->getDateOpened()));
-            ui->infoRoof->setText(it->getRoofType());
-            ui->infoTeam->setText(it->getTeamName());
-            ui->infoDist2C->setText(QString::number(it->getDistanceToCenter()) + " feet");
-            ui->infoLeague->setText(it->getLeague() + " League");
-            ui->infoStadium->setText(it->getStadiumName());
-            ui->infoSurface->setText(it->getPlayingSurface());
-            ui->infoCapacity->setText(QString::number(it->getSeatingCapacity()));
-            ui->infoLocation->setText(it->getLocation());
-            ui->infoTypology->setText(it->getParkTypology());
-
-            for(auto svIt = it->getSouvenirs().begin(); svIt != it->getSouvenirs().end(); svIt++)
-            {
-                ui->infoSVList->addItem(svIt->getSouvenirName());
-                ui->infoSVPriceList->addItem("$" + QString::number(svIt->getPrice()));
-            }
-            break;
-        }
-    }
-    ui->stackedWidget->setCurrentWidget(ui->infoPage);
+    initInfoScreen(0, item->text());
+    ui->addToCart->hide();
+    ui->tripContinue_2->hide();
+    ui->progressBar->hide();
+    ui->returnToTeamList->show();
 }
 
 void MainWindow::on_returnToTeamList_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->teamsPage);
+}
+
+void MainWindow::initInfoScreen(int index, QString team)
+{
+    ui->infoSVList->clear();
+    ui->infoSVPriceList->clear();
+    auto it = teams.begin() + index;
+
+    if(team != "") {
+        it = teams.begin();
+        for(; it != teams.end(); it++)
+            if(it->getTeamName() == team)
+                break;
+    }
+
+    ui->infoDate->setText(QString::number(it->getDateOpened()));
+    ui->infoRoof->setText(it->getRoofType());
+    ui->infoTeam->setText(it->getTeamName());
+    ui->infoDist2C->setText(QString::number(it->getDistanceToCenter()) + " feet");
+    ui->infoLeague->setText(it->getLeague() + " League");
+    ui->infoStadium->setText(it->getStadiumName());
+    ui->infoSurface->setText(it->getPlayingSurface());
+    ui->infoCapacity->setText(QString::number(it->getSeatingCapacity()));
+    ui->infoLocation->setText(it->getLocation());
+    ui->infoTypology->setText(it->getParkTypology());
+
+    for(auto svIt = it->getSouvenirs().begin(); svIt != it->getSouvenirs().end(); svIt++)
+    {
+        ui->infoSVList->addItem(svIt->getSouvenirName());
+        ui->infoSVPriceList->addItem("$" + QString::number(svIt->getPrice()));
+    }
+
+    ui->stackedWidget->setCurrentWidget(ui->infoPage);
 }
 
 
@@ -505,82 +519,219 @@ void MainWindow::on_stadiumsButton_triggered(QAction *arg1)
         int greatestDist = sortNums.top().getDistanceToCenter();
         while(!sortNums.empty())
         {
-            if(sortNums.top().getDistanceToCenter() == greatestDist)
-            {
+            if(sortNums.top().getDistanceToCenter() == greatestDist) {
                 ui->stadiumList->addItem(sortNums.top().getStadiumName());
                 ui->stadiumTeamList->addItem(sortNums.top().getTeamName());
                 ui->stadiumTypeList->addItem(QString::number(sortNums.top().getDistanceToCenter()));
                 sortNums.removeTop();
             }
-            else
-            {
+            else {
                 sortNums.removeTop();
             }
         }
     }
 }
 
-// RECEIPT/CART SCREEN
+
+// CART/ORDER SCREEN
 /*********************************************************************/
 void MainWindow::on_cartButton_clicked()
 {
-    ui->listWidget_receipt_stadiums->clear();
-    ui->listWidget_receipt_price->clear();
-    ui->listWidget_receipt_quantity->clear();
-    ui->listWidget_receipt_souvenirs->clear();
-    ui->listWidget_stadiumTotals->clear();
-    ui->listWidget_totals->clear();
-    ui->grandTotal->clear();
-
-
     ui->stackedWidget->setCurrentWidget(ui->cartPage);
-
-    Orders temp = orders;
-    const unsigned int SIZE = temp.getSize();
-
-    if(!temp.isEmpty())
-    {
-        for(unsigned int i = 0; i < SIZE; i++)
-        {
-            QString stadiumName = temp.getStadium(i);
-            double stadiumTotal = temp.getStadiumTotal(stadiumName);
-            double grandTotal   = temp.getGrandTotal();
-            int quantity = temp.getQty(i);
-            souvenirs souvenir = temp.getItem(i);
-            QString itemName = souvenir.getSouvenirName();
-            double price = souvenir.getPrice();
-
-
-            ui->listWidget_stadiumTotals->addItem(stadiumName);
-            ui->listWidget_totals->addItem("$ " + QString::number(stadiumTotal, 'f', 2));
-            ui->listWidget_receipt_stadiums->addItem(stadiumName);
-            ui->listWidget_receipt_souvenirs->addItem(itemName);
-            ui->listWidget_receipt_price->addItem("$ " +  QString::number(price, 'f', 2));
-            ui->listWidget_receipt_quantity->addItem(QString::number(quantity, 'f', 0));
-            ui->grandTotal->setText("$ " + QString::number(grandTotal, 'f', 2));
-
-        }
-    }
-    else
-    {
-        ui->listWidget_stadiumTotals->addItem("--");
-        ui->listWidget_totals->addItem("--");
-        ui->listWidget_receipt_stadiums->addItem("--");
-        ui->listWidget_receipt_souvenirs->addItem("--");
-        ui->listWidget_receipt_price->addItem("--");
-        ui->listWidget_receipt_quantity->addItem("--");
-        ui->grandTotal->setText("--");
-    }
-
-
-
-
 }
 
 
+// TRIP SCREEN
+/*********************************************************************/
+void MainWindow::on_tripButton_triggered(QAction *arg1)
+{
+    ui->addToCart->show();
+    ui->resultToLabel->hide();
+    ui->resultDistLabel->hide();
+    ui->resultFrom->clear();
+    ui->resultTo->clear();
+    ui->resultDist->clear();
+    ui->resultFromLabel->setText("Order to Visit Stadiums");
+    int distance;
 
+    if(arg1->iconText() == "Angels Stadium Trip") {
+        ui->resultTitle->setText("Angels Stadium Trip");
+        ui->laTripStadiumList->clear();
 
+        for(unsigned int i = 0; i < teams.size(); i++)
+            ui->laTripStadiumList->addItem(teams[i].getTeamName());
 
+        ui->stackedWidget->setCurrentWidget(ui->laTripPage);
+    }
+    else if(arg1->iconText() == "Customizable Trip") {
+        ui->tripStadiumList->clear();
+        ui->tripSTVList->clear();
+        stadiumsToVisit.clear();
 
+        for(unsigned int i = 0; i < teams.size(); i++)
+            ui->tripStadiumList->addItem(teams[i].getTeamName());
 
+        ui->stackedWidget->setCurrentWidget(ui->tripPage);
+    }
+    else if(arg1->iconText() == "Comerica Park Trip") {
+        ui->resultTitle->setText("Comerica Park Trip");
+        std::vector<int> otv;
 
+        distance = trips->comericaParkTrip(otv);
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = otv.begin(); it != otv.end(); it++)
+            ui->resultFrom->addItem(teams[*it].getStadiumName());
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+    else if(arg1->iconText() == "MST") {
+        ui->resultTitle->setText("MST Results");
+        ui->resultToLabel->show();
+        ui->resultTo->show();
+        ui->resultDistLabel->show();
+        ui->resultDist->show();
+        ui->resultFromLabel->setText("From");
+
+        std::vector<edge<int>> otv;
+
+        distance = trips->MST(otv);
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = otv.begin(); it != otv.end(); it++) {
+            ui->resultFrom->addItem(teams[it->currentV()].getStadiumName());
+            ui->resultTo->addItem(teams[it->oppositeV()].getStadiumName());
+            ui->resultDist->addItem(QString::number(it->getWeight()));
+        }
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+    else if(arg1->iconText() == "DFS") {
+        ui->resultTitle->setText("DFS Results");
+        std::vector<QString> otv;
+
+        distance = trips->DFS(otv);
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = otv.begin(); it != otv.end(); it++)
+            ui->resultFrom->addItem(*it);
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+    else if(arg1->iconText() == "BFS") {
+        ui->resultTitle->setText("BFS Results");
+        std::vector<vertex<QString>> otv;
+
+        distance = trips->BFS(otv);
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = otv.begin(); it != otv.end(); it++)
+            ui->resultFrom->addItem(it->info());
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+}
+
+void MainWindow::on_tripAdd_clicked()
+{
+    if(ui->tripStadiumList->selectedItems().size() != 0) {
+        bool flag = true;
+        for(unsigned int i = 0; i < stadiumsToVisit.size(); i++)
+            if(stadiumsToVisit[i] == ui->tripStadiumList->currentRow()) {
+                flag = false;
+                break;
+            }
+
+        if(flag) {
+            stadiumsToVisit.push_back(ui->tripStadiumList->currentRow());
+            ui->tripSTVList->addItem(teams[ui->tripStadiumList->currentRow()].getTeamName());
+        }
+    }
+    else
+        QMessageBox::warning(this, "No Selection", "Please select a team!");
+}
+
+void MainWindow::on_tripRemove_clicked()
+{
+    if(ui->tripSTVList->selectedItems().size() != 0) {
+        stadiumsToVisit.erase(stadiumsToVisit.begin() + ui->tripSTVList->currentRow());
+        ui->tripSTVList->removeItemWidget(ui->tripSTVList->currentItem());
+        delete ui->tripSTVList->currentItem();
+    }
+    else {
+        QMessageBox::warning(this, "No Selection", "Please select a team!");
+    }
+}
+
+void MainWindow::on_tripConfirm_clicked()
+{
+    if(stadiumsToVisit.empty())
+        return;
+
+    int distance;
+    if(ui->tripUserOrder->isChecked()) {
+        distance = trips->orderTrip(stadiumsToVisit);
+
+        ui->resultTitle->setText("Custom Trip (With Specified Order)");
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = stadiumsToVisit.begin(); it != stadiumsToVisit.end(); it++)
+            ui->resultFrom->addItem(teams[*it].getStadiumName());
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+    else {
+        std::vector<int> otv;
+        distance = trips->efficientOrder(stadiumsToVisit[0], stadiumsToVisit, otv);
+
+        ui->resultTitle->setText("Custom Trip");
+        ui->resultTDist->setText(QString::number(distance));
+
+        for(auto it = otv.begin(); it != otv.end(); it++)
+            ui->resultFrom->addItem(teams[*it].getStadiumName());
+
+        ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+    }
+}
+
+void MainWindow::on_resultContinue_clicked()
+{
+    ui->addToCart->show();
+    ui->tripContinue_2->show();
+    ui->returnToTeamList->hide();
+    ui->progressBar->show();
+    currentStadium = 0;
+
+    if(currentStadium < ui->resultFrom->count()) {
+        ui->progressBar->setValue((1.0 * currentStadium + 1)/(ui->resultFrom->count())*100);
+        initInfoScreen(trips->indexOf(ui->resultFrom->item(currentStadium)->text()));
+    }
+    else
+        ui->stackedWidget->setCurrentWidget(ui->cartPage);
+}
+
+void MainWindow::on_tripContinue_2_clicked()
+{
+    if(++currentStadium < ui->resultFrom->count()) {
+        ui->progressBar->setValue((1.0 * currentStadium + 1)/(ui->resultFrom->count())*100);
+        initInfoScreen(trips->indexOf(ui->resultFrom->item(currentStadium)->text()));
+    }
+    else
+        ui->stackedWidget->setCurrentWidget(ui->cartPage);
+}
+
+void MainWindow::on_laTripConfirm_clicked()
+{
+    if(ui->laTripStadiumList->selectedItems().size() != 0) {
+        if(teams[ui->laTripStadiumList->currentRow()].getStadiumName() != "Angel Stadium") {
+            int distance = trips->losAngelesTrip(ui->laTripStadiumList->currentRow());
+            ui->resultFrom->addItem("Angel Stadium");
+            ui->resultFrom->addItem(teams[ui->laTripStadiumList->currentRow()].getStadiumName());
+            ui->resultTDist->setText(QString::number(distance));
+
+            ui->stackedWidget->setCurrentWidget(ui->tripResultPage);
+        }
+    }
+    else
+        QMessageBox::warning(this, "No Selection", "Please select a team!");
+}

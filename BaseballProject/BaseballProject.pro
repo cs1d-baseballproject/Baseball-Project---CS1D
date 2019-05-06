@@ -31,7 +31,8 @@ SOURCES += \
         souvenirs.cpp \
         database.cpp \
         distance.cpp \
-        orders.cpp
+        orders.cpp \
+    trip.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,10 @@ HEADERS += \
         priorityQueue.h \
         database.h \
         distance.h \
-        orders.h
+        orders.h \
+    trip.h \
+    adjlistgraph.h \
+    graph.h
 
 FORMS += \
         mainwindow.ui \

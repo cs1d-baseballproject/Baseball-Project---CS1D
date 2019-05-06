@@ -8,7 +8,7 @@
 #include <QListWidget>
 #include "priorityQueue.h"
 #include "database.h"
-#include "orders.h"
+#include "trip.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,8 +34,6 @@ private slots:
     void on_sortAllTeam_clicked();
     void on_sortAllStadium_clicked();
 
-    // STADIUM LIST SCREEN
-
     // SIGN IN SCREEN
     void on_loginButton_clicked();
     void on_signIn_clicked();
@@ -54,24 +52,43 @@ private slots:
     void on_teamTList_itemDoubleClicked(QListWidgetItem *item);
     void on_returnToTeamList_clicked();
 
+    // STADIUM LIST
     void on_stadiumsButton_triggered(QAction *arg1);
 
-    // RECEIPT SCREEN
+    // CART/CHECKOUT SCREEN
     void on_cartButton_clicked();
+
+    // TRIP SCREEN
+    void on_tripButton_triggered(QAction *arg1);
+    void on_tripAdd_clicked();
+    void on_tripRemove_clicked();
+    void on_tripConfirm_clicked();
+    void on_resultContinue_clicked();
+    void on_tripContinue_2_clicked();
+
+    void on_laTripConfirm_clicked();
 
 private:
     Ui::MainWindow *ui;
+
+    // Data
     priorityQueue<team, QString> sort;
     std::vector<team> teams;
     std::vector<Distance> edgeList;
-    Orders orders;
     database* data;
+    trip* trips;
     bool isAdmin{false};
 
+    // Sort helper functions
     void sortTeams(bool byStadium, QString league = "");
     void sortStadiums(QString);
 
-    // admin line edits
+    // Trip
+    std::vector<int> stadiumsToVisit;
+    void initInfoScreen(int index, QString stadium = "");
+    int currentStadium;
+
+    // Admin line edits (for adding souvenirs)
     std::vector<QLineEdit*> modSouvName;
     std::vector<QLineEdit*> modSouvPrice;
     void clearLineEdits();

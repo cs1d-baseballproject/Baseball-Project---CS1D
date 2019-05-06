@@ -33,8 +33,8 @@ void database::initFromFile(QString path)
     {
         if(path.at(0) == 'D') {
             QString data[] = {"A", "B", "C"};
-            QString from = document.read(data[0].append(QString::number(index))).toString();
-            QString to = document.read(data[1].append(QString::number(index))).toString();
+            QString from = document.read(data[0].append(QString::number(index))).toString().simplified();
+            QString to = document.read(data[1].append(QString::number(index))).toString().simplified();
             int dist = document.read(data[2].append(QString::number(index))).toInt();
 
             edges->push_back(Distance(from, to, dist));
@@ -42,7 +42,7 @@ void database::initFromFile(QString path)
         else if (path.at(0) == 'M') {
             QString data[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             QString teamN = document.read(data[0].append(QString::number(index))).toString();
-            QString stadium = document.read(data[1].append(QString::number(index))).toString();
+            QString stadium = document.read(data[1].append(QString::number(index))).toString().simplified();
             int seatingCap = document.read(data[2].append(QString::number(index))).toInt();
             QString location = document.read(data[3].append(QString::number(index))).toString();
             QString surface = document.read(data[4].append(QString::number(index))).toString();
